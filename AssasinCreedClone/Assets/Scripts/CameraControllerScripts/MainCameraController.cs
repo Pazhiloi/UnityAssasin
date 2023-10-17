@@ -11,6 +11,11 @@ public class MainCameraController : MonoBehaviour
   float rotY;
   public float minVerAngle = -14f;
   public float maxVerAngle = 45f;
+  public Vector2 framingBalance;
+
+  private void Start() {
+    Cursor.lockState = CursorLockMode.Locked;
+  }
   private void Update()
   {
 
@@ -20,7 +25,9 @@ public class MainCameraController : MonoBehaviour
 
     var targetRotation = Quaternion.Euler(rotX, rotY, 0);
 
-    transform.position = target.position - targetRotation * new Vector3(0, 0, gap);
+    var focusPos = target.position + new Vector3(framingBalance.x, framingBalance.y);
+
+    transform.position = focusPos - targetRotation * new Vector3(0, 0, gap);
     transform.rotation = targetRotation;
   }
 }
