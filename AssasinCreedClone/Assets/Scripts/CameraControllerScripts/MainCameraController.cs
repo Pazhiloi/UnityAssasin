@@ -7,6 +7,8 @@ public class MainCameraController : MonoBehaviour
   [Header("Camera Controller")]
   public Transform target;
   public float gap = 3f;
+  public float rotSpeed = 3f;
+
   float rotX;
   float rotY;
   public float minVerAngle = -14f;
@@ -19,9 +21,9 @@ public class MainCameraController : MonoBehaviour
   private void Update()
   {
 
-    rotX += Input.GetAxis("Mouse Y");
+    rotX += Input.GetAxis("Mouse Y") * rotSpeed;
     rotX = Mathf.Clamp(rotX, minVerAngle, maxVerAngle);
-    rotY += Input.GetAxis("Mouse X");
+    rotY += Input.GetAxis("Mouse X") * rotSpeed;
 
     var targetRotation = Quaternion.Euler(rotX, rotY, 0);
 
