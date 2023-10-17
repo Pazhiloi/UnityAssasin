@@ -6,7 +6,7 @@ public class PlayerScript : MonoBehaviour
 {
   [Header("Player Movement")]
   public float movementSpeed = 3f;
-  public float rotSpeed = 600f;
+  public float rotSpeed = 450f;
   public MainCameraController MCC;
   Quaternion requiredRotation;
 
