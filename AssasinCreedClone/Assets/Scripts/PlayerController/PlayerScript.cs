@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +11,8 @@ public class PlayerScript : MonoBehaviour
   Quaternion requiredRotation;
   [Header("Player Animator")]
   public Animator animator;
+  [Header("Player Collision & Gravity")]
+  public CharacterController CC;
 
 
   private void Update()
@@ -32,7 +33,7 @@ public class PlayerScript : MonoBehaviour
 
     if (movementAmount > 0)
     {
-      transform.position += movementDirection * movementSpeed * Time.deltaTime;
+      CC.Move(movementDirection * movementSpeed * Time.deltaTime);
       requiredRotation = Quaternion.LookRotation(movementDirection);
     }
 
