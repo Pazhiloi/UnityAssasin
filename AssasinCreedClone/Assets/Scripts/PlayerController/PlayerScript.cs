@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,10 +6,13 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour
 {
   [Header("Player Movement")]
-  public float movementSpeed = 3f;
+  public float movementSpeed = 6f;
   public float rotSpeed = 450f;
   public MainCameraController MCC;
   Quaternion requiredRotation;
+  [Header("Player Animator")]
+  public Animator animator;
+
 
   private void Update()
   {
@@ -20,7 +24,7 @@ public class PlayerScript : MonoBehaviour
     float horizontal = Input.GetAxis("Horizontal");
     float vertical = Input.GetAxis("Vertical");
 
-    float movementAmount = Mathf.Abs(horizontal) + Mathf.Abs(vertical);
+    float movementAmount = Mathf.Clamp01(Mathf.Abs(horizontal) + Mathf.Abs(vertical));
 
     var movementInput = (new Vector3(horizontal, 0, vertical)).normalized;
 
@@ -33,6 +37,8 @@ public class PlayerScript : MonoBehaviour
     }
 
     transform.rotation = Quaternion.RotateTowards(transform.rotation, requiredRotation, rotSpeed * Time.deltaTime);
+
+    animator.SetFloat("movementValue", movementAmount, 0.2f, Time.deltaTime);
   }
 
 }
