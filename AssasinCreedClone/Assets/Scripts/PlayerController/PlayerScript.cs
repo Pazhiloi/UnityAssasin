@@ -11,13 +11,18 @@ public class PlayerScript : MonoBehaviour
   Quaternion requiredRotation;
   [Header("Player Animator")]
   public Animator animator;
+
   [Header("Player Collision & Gravity")]
   public CharacterController CC;
-
+  public float surfaceCheckRadius = 0.1f;
+  public Vector3 surfaceCheckOffset;
+  public LayerMask surfaceLayer;
+  bool onSurface;
 
   private void Update()
   {
     PlayerMovement();
+    SurfaceCheck();
   }
 
   void PlayerMovement()
@@ -41,5 +46,12 @@ public class PlayerScript : MonoBehaviour
 
     animator.SetFloat("movementValue", movementAmount, 0.2f, Time.deltaTime);
   }
+  void SurfaceCheck(){
+    onSurface = Physics.CheckSphere(transform.TransformPoint(surfaceCheckOffset), surfaceCheckRadius, surfaceLayer);
+  }
 
+   private void OnDrawGizmosSelected() {
+    Gizmos.color = Color.yellow;
+    Gizmos.DrawSphere(transform.TransformPoint(surfaceCheckOffset), surfaceCheckRadius);
+  }
 }
