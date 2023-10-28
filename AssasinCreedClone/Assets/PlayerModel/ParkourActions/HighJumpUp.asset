@@ -15,3 +15,4 @@ MonoBehaviour:
   animationName: HighJumpUp
   minimumHeight: 0.7
   maximumHeight: 1.2
+  lookAtObstacle: 1

@@ -49,7 +49,18 @@ public class ParkourControllerScript : MonoBehaviour
     {
       Debug.Log("Animations Name is Incorrect");
     }
-    yield return new WaitForSeconds(animationState.length);
+
+    float timerCounter = 0f;
+
+    while (timerCounter <= animationState.length)
+    {
+      timerCounter += Time.deltaTime;
+      if (action.LookAtObstacle)
+      {
+       transform.rotation = Quaternion.RotateTowards(transform.rotation, action.RequiredRotation, playerScript.rotSpeed * Time.deltaTime);
+      }
+      yield return null;
+    }
 
     playerScript.SetControl(true);
     playerInAction = false;
