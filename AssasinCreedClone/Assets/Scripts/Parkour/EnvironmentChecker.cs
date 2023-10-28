@@ -8,9 +8,20 @@ public class EnvironmentChecker : MonoBehaviour
    public float rayLength = 0.9f;
    public LayerMask obstacleLayer;
 
-   public void CheckObstacle(){
+   public ObstacleInfo CheckObstacle(){
+
+    var hitData = new ObstacleInfo();
+
     var rayOrigin = transform.position + rayOffset;
-    bool hitFound = Physics.Raycast(rayOrigin, transform.forward, out RaycastHit hitInfo, rayLength, obstacleLayer);
-    Debug.DrawRay(rayOrigin, transform.forward * rayLength, (hitFound) ? Color.red : Color.green);
+     hitData.hitFound = Physics.Raycast(rayOrigin, transform.forward, out hitData.hitInfo, rayLength, obstacleLayer);
+    Debug.DrawRay(rayOrigin, transform.forward * rayLength, (hitData.hitFound) ? Color.red : Color.green);
+
+    return hitData;
    }
+   
+}
+public struct ObstacleInfo
+{
+  public bool hitFound;
+  public RaycastHit hitInfo;
 }

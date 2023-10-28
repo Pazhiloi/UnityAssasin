@@ -7,6 +7,11 @@ public class ParkourControllerScript : MonoBehaviour
    public EnvironmentChecker environmentChecker;
 
    private void Update() {
-    environmentChecker.CheckObstacle();
-   }
+    var hitData =  environmentChecker.CheckObstacle();
+
+    if (hitData.hitFound)
+    {
+      Debug.Log("Object Founded" + hitData.hitInfo.transform.name);
+    }
+   } 
 }
