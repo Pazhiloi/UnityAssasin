@@ -63,9 +63,14 @@ public class ParkourControllerScript : MonoBehaviour
       {
         CompareTarget(action);
       }
+
+      if (animator.IsInTransition(0) && timerCounter > 0.5f)
+      {
+        break;
+      }
       yield return null;
     }
-
+    yield return new WaitForSeconds(action.ParkourActionDelay);
     playerScript.SetControl(true);
     playerInAction = false;
   }
