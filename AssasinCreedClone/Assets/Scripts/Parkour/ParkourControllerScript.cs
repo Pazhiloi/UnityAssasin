@@ -7,6 +7,8 @@ public class ParkourControllerScript : MonoBehaviour
   public EnvironmentChecker environmentChecker;
   bool playerInAction;
   public Animator animator;
+  public PlayerScript playerScript;
+
   [Header("Parkour Action Area")]
   public List<NewParkourAction> newParkourActions;
 
@@ -37,6 +39,7 @@ public class ParkourControllerScript : MonoBehaviour
   IEnumerator PerformParkourAction(NewParkourAction action)
   {
     playerInAction = true;
+    playerScript.SetControl(false);
 
     animator.CrossFade(action.AnimationName, 0.2f);
     yield return null;
@@ -48,6 +51,7 @@ public class ParkourControllerScript : MonoBehaviour
     }
     yield return new WaitForSeconds(animationState.length);
 
+    playerScript.SetControl(true);
     playerInAction = false;
   }
 }

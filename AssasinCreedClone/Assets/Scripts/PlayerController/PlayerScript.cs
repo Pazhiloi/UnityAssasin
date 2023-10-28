@@ -9,6 +9,7 @@ public class PlayerScript : MonoBehaviour
   public float rotSpeed = 450f;
   public MainCameraController MCC;
   Quaternion requiredRotation;
+  bool playerControl = true;
   [Header("Player Animator")]
   public Animator animator;
 
@@ -23,6 +24,11 @@ public class PlayerScript : MonoBehaviour
 
   private void Update()
   {
+    PlayerMovement();
+    if (!playerControl)
+    {
+      return;
+    }
 
     if (onSurface)
     {
@@ -32,7 +38,6 @@ public class PlayerScript : MonoBehaviour
     }
     var velocity = moveDir * movementSpeed;
     velocity.y = fallingSpeed;
-    PlayerMovement();
     SurfaceCheck();
   }
 
@@ -64,5 +69,16 @@ public class PlayerScript : MonoBehaviour
    private void OnDrawGizmosSelected() {
     Gizmos.color = Color.yellow;
     Gizmos.DrawSphere(transform.TransformPoint(surfaceCheckOffset), surfaceCheckRadius);
+  }
+
+  public void SetControl(bool hasControl){
+    this.playerControl = hasControl;
+    CC.enabled = hasControl;
+
+    if (!hasControl)
+    {
+      animator.SetFloat("movementValue", 0f);
+      requiredRotation = transform.rotation;
+    }
   }
 }
