@@ -4,14 +4,36 @@ using UnityEngine;
 
 public class ParkourControllerScript : MonoBehaviour
 {
-   public EnvironmentChecker environmentChecker;
+  public EnvironmentChecker environmentChecker;
+  bool playerInAction;
+  public Animator animator;
 
-   private void Update() {
-    var hitData =  environmentChecker.CheckObstacle();
 
-    if (hitData.hitFound)
+
+  private void Update()
+  {
+
+    if (Input.GetButton("Jump") && !playerInAction)
     {
-      Debug.Log("Object Founded" + hitData.hitInfo.transform.name);
+      var hitData = environmentChecker.CheckObstacle();
+
+      if (hitData.hitFound)
+      {
+        StartCoroutine(PerformParkourAction());
+      }
+
     }
-   } 
+  }
+
+  IEnumerator PerformParkourAction()
+  {
+    playerInAction = true;
+    animator.CrossFade("JumpUp", 0.2f);
+    yield return null;
+
+    var animationState = animator.GetNextAnimatorStateInfo(0);
+    yield return new WaitForSeconds(animationState.length);
+
+    playerInAction = false;
+  }
 }
