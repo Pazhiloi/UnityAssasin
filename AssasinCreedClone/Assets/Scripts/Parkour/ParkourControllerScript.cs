@@ -59,10 +59,18 @@ public class ParkourControllerScript : MonoBehaviour
       {
        transform.rotation = Quaternion.RotateTowards(transform.rotation, action.RequiredRotation, playerScript.rotSpeed * Time.deltaTime);
       }
+      if (action.AllowTargetMatching)
+      {
+        CompareTarget(action);
+      }
       yield return null;
     }
 
     playerScript.SetControl(true);
     playerInAction = false;
+  }
+
+  private void CompareTarget(NewParkourAction action){
+    animator.MatchTarget(action.ComparePosition, transform.rotation, action.CompareBodyPart, new MatchTargetWeightMask(new Vector3(0, 1, 0), 0), action.CompareStartTime, action.CompareEndTime);
   }
 }
