@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animationName: ClimbingUp
   minimumHeight: 3
-  maximumHeight: 7
+  maximumHeight: 9
   lookAtObstacle: 1
   allowTargetMatching: 1
   compareBodyPart: 5
