@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animationName: VaultJump2
   barrierTag: ShortBarrier
-  minimumHeight: 0.4
+  minimumHeight: 0.5
   maximumHeight: 1.5
   lookAtObstacle: 1
   parkourActionDelay: 0
