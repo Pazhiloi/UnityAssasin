@@ -7,6 +7,8 @@ public class ParkourControllerScript : MonoBehaviour
   public EnvironmentChecker environmentChecker;
   bool playerInAction;
   public Animator animator;
+  [Header("Parkour Action Area")]
+  public List<NewParkourAction> newParkourActions;
 
 
 
@@ -19,19 +21,31 @@ public class ParkourControllerScript : MonoBehaviour
 
       if (hitData.hitFound)
       {
-        StartCoroutine(PerformParkourAction());
+        foreach (var action in newParkourActions)
+        {
+          if (action.CheckIfAvailable(hitData, transform))
+          {
+            StartCoroutine(PerformParkourAction(action));
+            break;
+          }
+        }
       }
 
     }
   }
 
-  IEnumerator PerformParkourAction()
+  IEnumerator PerformParkourAction(NewParkourAction action)
   {
     playerInAction = true;
-    animator.CrossFade("JumpUp", 0.2f);
+
+    animator.CrossFade(action.AnimationName, 0.2f);
     yield return null;
 
     var animationState = animator.GetNextAnimatorStateInfo(0);
+    if (!animationState.IsName(action.AnimationName))
+    {
+      Debug.Log("Animations Name is Incorrect");
+    }
     yield return new WaitForSeconds(animationState.length);
 
     playerInAction = false;

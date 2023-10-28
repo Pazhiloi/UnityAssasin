@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33b83f431090fc442bc70b2ba93c69d1, type: 3}
   m_Name: JumpUp
   m_EditorClassIdentifier: 
-  animationName: 
-  minimumHeight: 0
-  maximumHeight: 0
+  animationName: JumpUp
+  minimumHeight: 0.2
+  maximumHeight: 0.9
